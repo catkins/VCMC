@@ -68,7 +68,7 @@ const int TIMERENCSERVICE = 1100; /// Microseconds between call to read encoder 
 const uint8_t FREQMEASUREACTIVE = 0;
 
 #ifdef CVTHING
-	const uint8_t SCREEN_OFFSET = 0xFF; /// Screen offset (Adjust based on screen manufacturer, lot, ...)
+	const uint8_t SCREEN_OFFSET = 0x01; /// Screen offset (Adjust based on screen manufacturer, lot, ...)
 #else
 	const uint8_t SCREEN_OFFSET = 0x00; /// Screen offset (Adjust based on screen manufacturer, lot, ...)
 #endif
