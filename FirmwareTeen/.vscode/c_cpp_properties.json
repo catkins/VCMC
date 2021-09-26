@@ -1,27 +1,31 @@
 {
   "configurations": [
     {
-      "name": "VisualTeensy",
+      "name": "Teensy",
       "includePath": [
-        "D:/apl/Arduino/hardware/teensy/avr/cores/teensy3/**",
-        "D:/apl/Arduino/hardware/teensy/avr/libraries/**",
-        "D:/apl/Arduino/libraries/**",
-        "C:/Users/sergi/Documents/Arduino/libraries/**",
-        "C:/Users/sergi/Documents/Arduino/libraries/Adafruit_GFX_Library"
+        "${workspaceFolder}/**",
+        "/Applications/Teensyduino.app/Contents/Java/hardware/arduino/avr/**",
+        "${env:HOME}/Documents/Arduino/Libraries/**",
+        "/Applications/Teensyduino.app/Contents/Java/libraries/**",
+        "/Applications/Teensyduino.app/Contents/Java/hardware/tools/**",
+        "/Applications/Teensyduino.app/Contents/Java/hardware/teensy/avr/**"
       ],
       "forcedInclude": [
-        "D:/apl/Arduino/hardware/teensy/avr/cores/teensy3/arduino.h"
+        "/Applications/Teensyduino.app/Contents/Java/hardware/teensy/avr/cores/teensy3/Arduino.h",
+        "/Applications/Teensyduino.app/Contents/Java/hardware/arduino/avr/cores/arduino/Arduino.h"
       ],
       "defines": [
         "__MK20DX256__",
-        "TEENSYDUINO=152",
+        "TEENSYDUINO=153",
         "F_CPU=96000000",
         "USB_MIDI_SERIAL",
         "LAYOUT_US_ENGLISH",
+        "CVTHING=1",
         "ARDUINO"
       ],
-      "compilerPath": "D:/Prog/Github/toolchain/gcc-arm-none-eabi-10-2020-q4-major/bin/arm-none-eabi-gcc",
-      "intelliSenseMode": "gcc-arm"
+      "cStandard": "c11",
+      "cppStandard": "c++11",
+      "intelliSenseMode": "macos-gcc-arm"
     }
   ],
   "version": 4

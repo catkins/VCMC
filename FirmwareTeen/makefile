@@ -9,42 +9,45 @@
 #
 # 09/07/2020 17:31
 #******************************************************************************
-SHELL            := cmd.exe
-export SHELL
+# SHELL            := cmd.exe
+# export SHELL
 
 SKETCH_NAME      := FirmwareTeen.ino
 
 BOARD_ID         := TEENSY32
 MCU              := mk20dx256
 
+TEENSYDUINO_PATH := /Applications/Teensyduino.app/Contents/Java
+
 BUILDER_BASE     := D:\apl\Arduino
-FLAGS            := -verbose=0 -warnings=all
+FLAGS            := -verbose=1 -warnings=all
 FQBN             := teensy:avr:teensy31:usb=midi,speed=96,opt=o2std,keys=en-us
-BUILD_PATH       := $(abspath ../../build)
-HARDWARE         := -hardware="D:\apl\Arduino/hardware"
-TOOLS            := -tools="D:\apl\Arduino\tools-builder"
+BUILD_PATH       := $(abspath ../build)
+HARDWARE         := -hardware="$(TEENSYDUINO_PATH)/hardware"
+TOOLS            := -tools="$(TEENSYDUINO_PATH)/tools-builder"
 
-LIBRARIES        := -libraries="C:\Users\sergi\Documents\Arduino/libraries"
-LIBRARIES        += -libraries="D:\apl\Arduino/hardware/teensy/avr/libraries"
-LIBRARIES        += -libraries="D:\apl\Arduino/libraries"
+LIBRARIES        := -libraries="$(HOME)/Documents/arduino/libraries"
+LIBRARIES        += -libraries="$(TEENSYDUINO_PATH)/hardware/teensy/avr/libraries"
+# LIBRARIES        += -libraries="D:\apl\Arduino/libraries"
 
-UPL_PJRC_B       := D:\apl\Arduino\hardware\tools
+UPL_PJRC_B       := $(HARDWARE)/tools
 UPL_TYCMD_B      := D:\Prog\TyTools
-UPL_CLICMD_B     := 
+UPL_CLICMD_B     :=
 
 TARGET_HEX       := $(BUILD_PATH)/$(SKETCH_NAME).hex
 
 #******************************************************************************
 # BINARIES
 #******************************************************************************
-BUILDER     := $(BUILDER_BASE)/arduino-builder
+# BUILDER     := $(BUILDER_BASE)/arduino-builder
+BUILDER     := arduino-builder
 UPL_PJRC    := "$(UPL_PJRC_B)/teensy_post_compile" -test -file=$(SKETCH_NAME) -path=$(BUILD_PATH) -tools="$(UPL_PJRC_B)" -board=$(BOARD_ID) -reboot
 UPL_TYCMD   := $(UPL_TYCMD_B)/tyCommanderC upload $(TARGET_HEX) --autostart --wait --multi
-UPL_CLICMD  := $(UPL_CLICMD_B)/teensy_loader_cli -mmcu=$(MCU) -v $(TARGET_HEX) 
+UPL_CLICMD  := $(UPL_CLICMD_B)/teensy_loader_cli -mmcu=$(MCU) -v $(TARGET_HEX)
 
-.PHONY:  all upload uploadTy uploadCLI clean 
+.PHONY:  all upload uploadTy uploadCLI clean
 
-all:  
+all:
 	$(BUILDER) $(FLAGS) -build-path=$(BUILD_PATH) -fqbn=$(FQBN) $(HARDWARE) $(TOOLS) $(LIBRARIES) $(SKETCH_NAME)
 
 upload: all
@@ -56,7 +59,7 @@ uploadTy: all
 uploadCLI: all
 	@$(UPL_CLICMD)
 
-clean: 
+clean:
 	@echo Cleaning user binaries...
 	@if exist $(BUILD_PATH)/core rd /s/q "$(BUILD_PATH)/core"
 	@if exist $(BUILD_PATH)/libraries rd /s/q "$(BUILD_PATH)/libraries"
@@ -68,6 +71,6 @@ clean:
 	@if exist "$(BUILD_PATH)/*.elf" del  $(subst /,\,$(BUILD_PATH)/*.elf)
 	@if exist "$(BUILD_PATH)/*.lst" del  $(subst /,\,$(BUILD_PATH)/*.lst)
 	@if exist "$(BUILD_PATH)/*.sym" del  $(subst /,\,$(BUILD_PATH)/*.sym)
-	@if exist "$(BUILD_PATH)/*.json" del  $(subst /,\,$(BUILD_PATH)/*.json)	
+	@if exist "$(BUILD_PATH)/*.json" del  $(subst /,\,$(BUILD_PATH)/*.json)
 	@if exist "$(BUILD_PATH)/*.cache" del  $(subst /,\,$(BUILD_PATH)/*.cache)
 	@echo done
